@@ -1,11 +1,12 @@
 package migration
 
 import (
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/matgarcia/edcomments/configuration"
 	"github.com/matgarcia/edcomments/models"
-	_ "github.com/go-sql-driver/mysql"
 )
 
+// Migrate permite crear las tablas enla db
 func Migrate() {
 
 	db := configuration.GetConnection()
@@ -15,7 +16,5 @@ func Migrate() {
 	db.CreateTable(&models.Comment{})
 	db.CreateTable(&models.Vote{})
 	db.Model(&models.Vote{}).AddUniqueIndex("comment_ide_user_id_unique", "comment_id", "user_id")
-
-
 
 }
